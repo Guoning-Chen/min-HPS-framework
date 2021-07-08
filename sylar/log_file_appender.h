@@ -1,8 +1,12 @@
+#ifndef FILE_APPENDER_H_
+#define FILE_APPENDER_H_
+
 #include <memory>
 #include <fstream>
 
 #include "log_appender.h"
 #include "log_level.h"
+#include "logger.h"
 
 namespace sylar
 {
@@ -13,7 +17,7 @@ class FileLogAppender : public LogAppender
 public:
     typedef std::shared_ptr<FileLogAppender> ptr;
     FileLogAppender(const std::string& filename);
-    void log(LogLevel::Level level, LogEvent::ptr event) override;
+    void log(std::shared_ptr<Logger>logger, LogLevel::Level level, LogEvent::ptr event) override;
 
     // 重新打开文件,成功则返回true
     bool reopen();
@@ -23,3 +27,5 @@ private:
 };
 
 }
+
+#endif // FILE_APPENDER_H_

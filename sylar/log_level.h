@@ -1,3 +1,6 @@
+#ifndef LOG_LEVEL_H_
+#define LOG_LEVEL_H_
+
 namespace sylar
 {
 
@@ -19,3 +22,5 @@ public:
 };
 
 }
+
+#endif // LOG_LEVEL_H_

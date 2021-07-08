@@ -1,5 +1,7 @@
-#include <memory>
+#ifndef LOG_EVENT_H_
+#define LOG_EVENT_H_
 
+#include <memory>
 
 namespace sylar
 {
@@ -29,3 +31,5 @@ private:
 };
 
 }
+
+#endif // LOG_EVENT_H_

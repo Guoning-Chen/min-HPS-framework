@@ -68,4 +68,9 @@ inline LogLevel::Level Logger::getLevel() const
     return level_;
 }
 
+inline const std::string& Logger::getName() const
+{
+    return name_;
+}
+
 }

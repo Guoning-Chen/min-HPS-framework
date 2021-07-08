@@ -1,3 +1,6 @@
+#ifndef LOGGER_H_
+#define LOGGER_H_
+
 #include <memory>
 #include <list>
 
@@ -26,6 +29,8 @@ public:
     void deleteAppender(LogAppender::ptr appender);
     LogLevel::Level getLevel() const;
     void setLevel(LogLevel::Level val);
+
+    const std::string& getName() const;
 private:
     std::string name_;                      // 日志名称
     LogLevel::Level level_;                 // 日志级别
@@ -33,3 +38,5 @@ private:
 };
 
 }
+
+#endif // LOGGER_H_
