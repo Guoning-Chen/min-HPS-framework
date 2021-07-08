@@ -1,14 +1,10 @@
-#include "log.h"
+#include "logger.h"
 
 namespace sylar
 {
 
-// ==============================Logger======================================//
 Logger::Logger(const std::string& name = "root")
-    :name_(name)
-{
-
-}
+    :name_(name) { }
 
 void Logger::log(LogLevel::Level level, LogEvent::ptr event)
 {
@@ -27,7 +23,7 @@ void Logger::debug(LogEvent::ptr event)
 }
 void Logger::info(LogEvent::ptr event)
 {
-    debug(LogLevel::INFO, event);
+    // debug(LogLevel::INFO, event);
 }
 
 void Logger::warn(LogEvent::ptr event)
@@ -52,7 +48,7 @@ void Logger::addAppender(LogAppender::ptr appender)
 
 void Logger::deleteAppender(LogAppender::ptr appender)
 {
-    for (auto it = appenders_.begin(); it != appenders_.end(); ++i)
+    for (auto it = appenders_.begin(); it != appenders_.end(); ++it)
     {
         if (*it == appender)
         {
@@ -62,25 +58,14 @@ void Logger::deleteAppender(LogAppender::ptr appender)
     }
 }
 
-inline LogLevel::Level Logger::getLevel() const 
-{
-    return level_;
-}
-
-void Logger::setLevel(LogLevel::Level val) 
+inline void Logger::setLevel(LogLevel::Level val) 
 {
     level_ = val;
 }
 
-// ===========================StdoutLogAppender==============================//
-void StdoutLogAppender::log(LogLevel::Level level, LogEvent::ptr event)
+inline LogLevel::Level Logger::getLevel() const 
 {
-
-}
-
-void FileLogAppender::log(LogLevel::Level level, LogEvent::ptr event)
-{
-
+    return level_;
 }
 
 }
