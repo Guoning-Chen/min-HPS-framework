@@ -7,6 +7,7 @@
 #include "log_appender.h"
 #include "log_level.h"
 #include "logger.h"
+#include "log_event.h"
 
 namespace sylar
 {

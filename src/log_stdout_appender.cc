@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "stdout_appender.h"
+#include "log_stdout_appender.h"
 
 namespace sylar
 {

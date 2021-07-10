@@ -1,5 +1,7 @@
 #include <sstream>
 #include <iostream>
+#include <functional>
+#include <tuple>
 
 #include "log_formatter.h"
 #include "log_format_item.h"
@@ -8,7 +10,7 @@ namespace sylar
 {
 
 LogFormatter::LogFormatter(const std::string& pattern)
-    :pattern_(pattern_) { }
+    :pattern_(pattern) { }
 
 std::string LogFormatter::format(std::shared_ptr<Logger>logger, 
     LogLevel::Level level, LogEvent::ptr event)
@@ -25,7 +27,7 @@ void LogFormatter::init()
     // str, format, type
     std::vector<std::tuple<std::string, std::string, int> > v;
     std::string nstr;
-    for (size_t i = 0; i = pattern_.size(); ++i)
+    for (size_t i = 0; i < pattern_.size(); ++i)
     {
         if (pattern_[i] != '%')
         {
@@ -99,20 +101,20 @@ void LogFormatter::init()
 
     static std::map<std::string, 
         std::function<FormatItem::ptr(const std::string& str)>> formatItems = {
-#define XX(str, C) \
+#define CALL_CONSTRUCTOR(str, C) \
         {#str, [](const std::string& format){ \
-        return FormatItem::ptr(new C(format))}; }
+        return FormatItem::ptr(new C(format));}}
 
-        XX(m, MessageFormatItem),
-        XX(p, LevelFormatItem),
-        XX(r, ElapseFormatItem),
-        XX(c, NameFormatItem),
-        XX(t, ThreadIdFormatItem),
-        XX(n, NewLineFormatItem),
-        XX(d, DateTimeFormatItem),
-        XX(f, FilenameFormatItem),
-        XX(l, StringFormatItem),
-#undef XX
+        CALL_CONSTRUCTOR(m, MessageFormatItem),
+        CALL_CONSTRUCTOR(p, LevelFormatItem),
+        CALL_CONSTRUCTOR(r, ElapseFormatItem),
+        CALL_CONSTRUCTOR(c, NameFormatItem),
+        CALL_CONSTRUCTOR(t, ThreadIdFormatItem),
+        CALL_CONSTRUCTOR(n, NewLineFormatItem),
+        CALL_CONSTRUCTOR(d, DateTimeFormatItem),
+        CALL_CONSTRUCTOR(f, FilenameFormatItem),
+        CALL_CONSTRUCTOR(l, StringFormatItem)
+#undef CALL_CONSTRUCTOR
         };
     // %m 消息体
     // %p level

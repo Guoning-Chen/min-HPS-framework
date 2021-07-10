@@ -15,8 +15,8 @@ class StdoutLogAppender : public LogAppender
 {
 public:
     typedef std::shared_ptr<StdoutLogAppender> ptr;
-    void log(std::shared_ptr<Logger>logger, LogLevel::Level level, LogEvent::ptr event) override;
-private:
+    void log(std::shared_ptr<Logger>logger, LogLevel::Level level, 
+        LogEvent::ptr event) override;
 };
 
 }

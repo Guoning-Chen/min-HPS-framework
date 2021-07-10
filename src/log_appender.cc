@@ -13,4 +13,14 @@ inline LogFormatter::ptr LogAppender::getformatter() const
     return formatter_;
 }
 
+inline LogLevel::Level LogAppender::getLevel() const
+{
+    return level_;
+}
+
+inline void LogAppender::setLevel(LogLevel::Level level)
+{
+    level_ = level;
+}
+
 }

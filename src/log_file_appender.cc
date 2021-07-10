@@ -1,10 +1,10 @@
-#include "file_appender.h"
+#include "log_file_appender.h"
 
 namespace sylar
 {
 
 FileLogAppender::FileLogAppender(const std::string& filename)
-    :filename_(filename_)
+    :filename_(filename)
 {
 
 }

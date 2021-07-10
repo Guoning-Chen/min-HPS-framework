@@ -7,16 +7,16 @@ const char* LogLevel::toString(LogLevel::Level level)
 {
     switch (level)
     {
-        #define XX(name) \
+        #define ENUM2STRIG(name) \
             case LogLevel::name: \
                 return #name; \
                 break;
-            XX(DEBUG);
-            XX(INFO);
-            XX(WARN);
-            XX(ERROR);
-            XX(FATAL);
-        #undef XX
+            ENUM2STRIG(DEBUG);
+            ENUM2STRIG(INFO);
+            ENUM2STRIG(WARN);
+            ENUM2STRIG(ERROR);
+            ENUM2STRIG(FATAL);
+        #undef ENUM2STRIG
     default:
         return "UNKNOWN";
     }

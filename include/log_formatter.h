@@ -6,7 +6,6 @@
 #include <string>
 #include <vector>
 #include <map>
-#include <functional>
 
 #include "log_event.h"
 #include "log_level.h"

@@ -6,74 +6,61 @@
 namespace sylar
 {
 
-// message
+// %m 消息
 class MessageFormatItem : public LogFormatter::FormatItem
 {
 public:
+    using FormatItem::FormatItem;
     void format(std::ostream& os, std::shared_ptr<Logger> logger, 
         LogLevel::Level level, LogEvent::ptr event) override;
 };
 
-// level
+// %p 日志级别
 class LevelFormatItem : public LogFormatter::FormatItem
 {
 public:
+    using FormatItem::FormatItem;
     void format(std::ostream& os, std::shared_ptr<Logger> logger, 
         LogLevel::Level level, LogEvent::ptr event) override;
 };
 
-// elapse
+// %r 累计时间(ms)
 class ElapseFormatItem : public LogFormatter::FormatItem
 {
 public:
+    using FormatItem::FormatItem;
     void format(std::ostream& os, std::shared_ptr<Logger> logger, 
         LogLevel::Level level, LogEvent::ptr event) override;
 };
 
-// name
+// %c 日志名称
 class NameFormatItem : public LogFormatter::FormatItem
 {
 public:
+    using FormatItem::FormatItem;
     void format(std::ostream& os, std::shared_ptr<Logger> logger, 
         LogLevel::Level level, LogEvent::ptr event) override;
 };
 
-// thread id
+// %t 线程id
 class ThreadIdFormatItem : public LogFormatter::FormatItem
 {
 public:
+    using FormatItem::FormatItem;
     void format(std::ostream& os, std::shared_ptr<Logger> logger, 
         LogLevel::Level level, LogEvent::ptr event) override;
 };
 
-// new line(回车换行)
+// %n 换行
 class NewLineFormatItem : public LogFormatter::FormatItem
 {
 public:
+    using FormatItem::FormatItem;
     void format(std::ostream& os, std::shared_ptr<Logger> logger, 
         LogLevel::Level level, LogEvent::ptr event) override;
 };
 
-// string(其他)
-class StringFormatItem : public LogFormatter::FormatItem
-{
-public:
-    StringFormatItem(const std::string& str);
-    void format(std::ostream& os, std::shared_ptr<Logger> logger, 
-        LogLevel::Level level, LogEvent::ptr event) override;
-private:
-    std::string string_;
-};
-
-// fiber id
-class FiberIdFormatItem : public LogFormatter::FormatItem
-{
-public:
-    void format(std::ostream& os, std::shared_ptr<Logger> logger, 
-        LogLevel::Level level, LogEvent::ptr event) override;
-};
-
-// time
+// %d 时间
 class DateTimeFormatItem : public LogFormatter::FormatItem
 {
 public:
@@ -84,20 +71,55 @@ private:
     std::string format_;
 };
 
-// filename
+// %f 文件名
 class FilenameFormatItem : public LogFormatter::FormatItem
 {
 public:
+    using FormatItem::FormatItem;
     void format(std::ostream& os, std::shared_ptr<Logger> logger, 
         LogLevel::Level level, LogEvent::ptr event) override;
 };
 
-// line
+// %l 行号
 class LineFormatItem : public LogFormatter::FormatItem
 {
 public:
+    using FormatItem::FormatItem;
     void format(std::ostream& os, std::shared_ptr<Logger> logger, 
         LogLevel::Level level, LogEvent::ptr event) override;
+};
+
+// %T Tab
+class TabFormatItem : public LogFormatter::FormatItem {
+public:
+    TabFormatItem(const std::string& str = "") {}
+    void format(std::ostream& os, Logger::ptr logger, LogLevel::Level level, LogEvent::ptr event) override {
+        os << "\t";
+    }
+private:
+    std::string m_string;
+};
+
+// %F 协程id
+class FiberIdFormatItem : public LogFormatter::FormatItem
+{
+public:
+    using FormatItem::FormatItem;
+    void format(std::ostream& os, std::shared_ptr<Logger> logger, 
+        LogLevel::Level level, LogEvent::ptr event) override;
+};
+
+
+// 默认格式
+class StringFormatItem : public LogFormatter::FormatItem
+{
+public:
+    using FormatItem::FormatItem;
+    StringFormatItem(const std::string& str);
+    void format(std::ostream& os, std::shared_ptr<Logger> logger, 
+        LogLevel::Level level, LogEvent::ptr event) override;
+private:
+    std::string string_;
 };
 
 }

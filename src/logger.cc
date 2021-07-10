@@ -1,9 +1,11 @@
 #include "logger.h"
 
+using namespace sylar;
+
 namespace sylar
 {
 
-Logger::Logger(const std::string& name = "root")
+Logger::Logger(const std::string& name)
     :name_(name) { }
 
 void Logger::log(LogLevel::Level level, LogEvent::ptr event)
@@ -12,7 +14,8 @@ void Logger::log(LogLevel::Level level, LogEvent::ptr event)
     {
         for(auto& appender : appenders_)
         {
-            appender->log(level, event);
+            auto self = shared_from_this();
+            appender->log(self, level, event);
         }
     }
 }
