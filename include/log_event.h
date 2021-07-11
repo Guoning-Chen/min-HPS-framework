@@ -3,7 +3,9 @@
 
 #include <memory>
 #include <sstream>
+#include <cstdarg>
 
+#include "log.h"
 #include "logger.h"
 #include "log_level.h"
 
@@ -14,9 +16,7 @@ namespace sylar
 class LogEvent
 {
 public:
-    typedef std::shared_ptr<LogEvent> ptr;
-
-    LogEvent(std::shared_ptr<Logger> logger, LogLevel::Level level
+    LogEvent(LoggerPtr logger, LogLevel::Level level
             ,const char* file, int32_t line, uint32_t elapse
             ,uint32_t threadId, uint32_t fiberId, uint64_t time
             ,const std::string& threadName);
@@ -30,12 +30,13 @@ public:
     uint64_t getTime() const;
     const std::string& getThreadName() const;
     std::string getContent() const;
-    std::shared_ptr<Logger> getLogger() const;
+    LoggerPtr getLogger() const;
     LogLevel::Level getLevel() const;
-    std::stringstream& getSS() const;
+    std::stringstream& getSS();
 
     // 格式化写入日志内容
-    void format(const char* fmt, va_list al);
+    void format(const char* fmt, ...);          // 可变参数函数
+    void format(const char* fmt, va_list al);   // 实际的执行函数
 private:
     const char* file_ = nullptr;    // 文件名
     int32_t line_ = 0;              // 行号
@@ -45,7 +46,7 @@ private:
     uint64_t time_ = 0;             // 时间戳
     std::string threadName_;        // 线程名称
     std::stringstream ss_;          // 日志内容流
-    std::shared_ptr<Logger> logger_;// 日志器
+    LoggerPtr logger_;// 日志器
     LogLevel::Level level_;         // 日志等级
 };
 

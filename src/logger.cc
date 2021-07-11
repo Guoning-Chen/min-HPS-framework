@@ -8,7 +8,7 @@ namespace sylar
 Logger::Logger(const std::string& name)
     :name_(name) { }
 
-void Logger::log(LogLevel::Level level, LogEvent::ptr event)
+void Logger::log(LogLevel::Level level, LogEventPtr event)
 {
     if (level >= level_)
     {
@@ -20,36 +20,36 @@ void Logger::log(LogLevel::Level level, LogEvent::ptr event)
     }
 }
 
-void Logger::debug(LogEvent::ptr event)
+void Logger::debug(LogEventPtr event)
 {
     
 }
-void Logger::info(LogEvent::ptr event)
+void Logger::info(LogEventPtr event)
 {
     // debug(LogLevel::INFO, event);
 }
 
-void Logger::warn(LogEvent::ptr event)
+void Logger::warn(LogEventPtr event)
 {
 
 }
 
-void Logger::error(LogEvent::ptr event)
+void Logger::error(LogEventPtr event)
 {
 
 }
 
-void Logger::fatal(LogEvent::ptr event)
+void Logger::fatal(LogEventPtr event)
 {
 
 }
 
-void Logger::addAppender(LogAppender::ptr appender)
+void Logger::addAppender(LogAppenderPtr appender)
 {
     appenders_.push_back(appender);
 }
 
-void Logger::deleteAppender(LogAppender::ptr appender)
+void Logger::deleteAppender(LogAppenderPtr appender)
 {
     for (auto it = appenders_.begin(); it != appenders_.end(); ++it)
     {

@@ -3,12 +3,12 @@
 namespace sylar
 {
 
-inline void LogAppender::setFormatter(LogFormatter::ptr formatter)
+inline void LogAppender::setFormatter(LogFormatterPtr formatter)
 {
     formatter_ = formatter;
 }
 
-inline LogFormatter::ptr LogAppender::getformatter() const
+inline LogFormatterPtr LogAppender::getformatter() const
 {
     return formatter_;
 }

@@ -9,8 +9,8 @@ FileLogAppender::FileLogAppender(const std::string& filename)
 
 }
 
-void FileLogAppender::log(std::shared_ptr<Logger>logger, LogLevel::Level level, 
-                          LogEvent::ptr event)
+void FileLogAppender::log(LoggerPtr logger, LogLevel::Level level, 
+    LogEventPtr event)
 {
     if (level >= level_)
         fileStream_ << formatter_->format(logger, level, event);

@@ -7,6 +7,7 @@
 #include <vector>
 #include <map>
 
+#include "log.h"
 #include "log_event.h"
 #include "log_level.h"
 #include "logger.h"
@@ -17,27 +18,27 @@ namespace sylar
 // 日志格式器
 class LogFormatter
 {
+
 public:
-    typedef std::shared_ptr<LogFormatter> ptr;
     LogFormatter(const std::string& pattern);
 
-    std::string format(std::shared_ptr<Logger> logger, LogLevel::Level level, 
-        LogEvent::ptr event);
+    std::string format(LoggerPtr logger, LogLevel::Level level, 
+        LogEventPtr event);
 public:
     class FormatItem
     {
     public:
-        typedef std::shared_ptr<FormatItem> ptr;
         FormatItem(const std::string& format = "");
         virtual ~FormatItem() {}
-        virtual void format(std::ostream& os, std::shared_ptr<Logger> logger, 
-            LogLevel::Level level, LogEvent::ptr event) = 0;
+        virtual void format(std::ostream& os, LoggerPtr logger, 
+            LogLevel::Level level, LogEventPtr event) = 0;
     };
+    typedef std::shared_ptr<FormatItem> FormatItemPtr;
 
     void init();
 private:
     std::string pattern_;
-    std::vector<FormatItem::ptr> items_;
+    std::vector<std::shared_ptr<FormatItem>> items_;
 };
 
 }

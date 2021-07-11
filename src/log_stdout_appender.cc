@@ -5,8 +5,8 @@
 namespace sylar
 {
 
-void StdoutLogAppender::log(std::shared_ptr<Logger>logger, 
-    LogLevel::Level level, LogEvent::ptr event)
+void StdoutLogAppender::log(LoggerPtr logger, LogLevel::Level level, 
+    LogEventPtr event)
 {
     if (level >= level_)
         std::cout << formatter_->format(logger, level, event);

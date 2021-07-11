@@ -3,6 +3,7 @@
 
 #include <memory>
 
+#include "log.h"
 #include "log_appender.h"
 #include "log_level.h"
 #include "log_event.h"
@@ -14,9 +15,8 @@ namespace sylar
 class StdoutLogAppender : public LogAppender
 {
 public:
-    typedef std::shared_ptr<StdoutLogAppender> ptr;
-    void log(std::shared_ptr<Logger>logger, LogLevel::Level level, 
-        LogEvent::ptr event) override;
+    void log(LoggerPtr logger, LogLevel::Level level, 
+        LogEventPtr event) override;
 };
 
 }

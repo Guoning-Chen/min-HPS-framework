@@ -12,8 +12,8 @@ namespace sylar
 LogFormatter::LogFormatter(const std::string& pattern)
     :pattern_(pattern) { }
 
-std::string LogFormatter::format(std::shared_ptr<Logger>logger, 
-    LogLevel::Level level, LogEvent::ptr event)
+std::string LogFormatter::format(LoggerPtr logger, 
+    LogLevel::Level level, LogEventPtr event)
 {
     std::stringstream ss;
     for (auto& item : items_)
@@ -100,10 +100,10 @@ void LogFormatter::init()
         v.push_back(std::make_tuple(nstr, "", 0));
 
     static std::map<std::string, 
-        std::function<FormatItem::ptr(const std::string& str)>> formatItems = {
+        std::function<FormatItemPtr(const std::string& str)>> formatItems = {
 #define CALL_CONSTRUCTOR(str, C) \
         {#str, [](const std::string& format){ \
-        return FormatItem::ptr(new C(format));}}
+        return FormatItemPtr(new C(format));}}
 
         CALL_CONSTRUCTOR(m, MessageFormatItem),
         CALL_CONSTRUCTOR(p, LevelFormatItem),
@@ -125,36 +125,36 @@ void LogFormatter::init()
     // %d 时间
     // %f 文件名
     // %l 行号
-    for (auto& item : items_)
-    {
-        if (std::get<2>(item) == 0)
-        {
-            const std::string& str = std::get(0)(item);
-            FormatItem::ptr ptr = FormatItem::ptr(new StringFormatItem(format));
-            items_.push_back(ptr);
-        }
-        else
-        {
-            const std::string& str = std::get<0>(item);
-            auto it = formatItems.find(str);
-            if (it == formatItems.end())
-            {
-                const std::string str = std::get<0>(item);
-                FormatItem::ptr ptr = FormatItem::ptr(new StringFormatItem("<<error_format %" + str + ">>"))
-                items_.push_back(ptr);
-            }
-            else
-            {
-                items_.push_back(it->second(std::get<1>(item)));
-            }
-        }
+    // for (auto& item : items_)
+    // {
+    //     if (std::get<2>(item) == 0)
+    //     {
+    //         const std::string& str = std::get(0)(item);
+    //         FormatItemPtr ptr = FormatItemPtr(new StringFormatItem(format));
+    //         items_.push_back(ptr);
+    //     }
+    //     else
+    //     {
+    //         const std::string& str = std::get<0>(item);
+    //         auto it = formatItems.find(str);
+    //         if (it == formatItems.end())
+    //         {
+    //             const std::string str = std::get<0>(item);
+    //             FormatItemPtr ptr = FormatItemPtr(new StringFormatItem("<<error_format %" + str + ">>"))
+    //             items_.push_back(ptr);
+    //         }
+    //         else
+    //         {
+    //             items_.push_back(it->second(std::get<1>(item)));
+    //         }
+    //     }
 
-        std::cout << std::get<0>(item) << " - " << std::get<1>(item) << 
-                     " - " << std::get<2>(item) << std::endl;
-    }
+    //     std::cout << std::get<0>(item) << " - " << std::get<1>(item) << 
+    //                  " - " << std::get<2>(item) << std::endl;
+    // }
 }
 
-LogFormatter::FormatItem::FormatItem(const std::string& format = "")
+LogFormatter::FormatItem::FormatItem(const std::string& format)
 {
 
 }
