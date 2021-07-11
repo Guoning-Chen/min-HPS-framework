@@ -3,6 +3,11 @@
 namespace sylar
 {
 
+LogAppender::~LogAppender()
+{
+
+}
+
 inline void LogAppender::setFormatter(LogFormatterPtr formatter)
 {
     formatter_ = formatter;

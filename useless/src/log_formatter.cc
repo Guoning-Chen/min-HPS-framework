@@ -105,26 +105,20 @@ void LogFormatter::init()
         {#str, [](const std::string& format){ \
         return FormatItemPtr(new C(format));}}
 
-        CALL_CONSTRUCTOR(m, MessageFormatItem),
-        CALL_CONSTRUCTOR(p, LevelFormatItem),
-        CALL_CONSTRUCTOR(r, ElapseFormatItem),
-        CALL_CONSTRUCTOR(c, NameFormatItem),
-        CALL_CONSTRUCTOR(t, ThreadIdFormatItem),
-        CALL_CONSTRUCTOR(n, NewLineFormatItem),
-        CALL_CONSTRUCTOR(d, DateTimeFormatItem),
-        CALL_CONSTRUCTOR(f, FilenameFormatItem),
-        CALL_CONSTRUCTOR(l, StringFormatItem)
+        CALL_CONSTRUCTOR(m, MessageFormatItem),           //m:消息
+        CALL_CONSTRUCTOR(p, LevelFormatItem),             //p:日志级别
+        CALL_CONSTRUCTOR(r, ElapseFormatItem),            //r:累计毫秒数
+        CALL_CONSTRUCTOR(c, NameFormatItem),              //c:日志名称
+        CALL_CONSTRUCTOR(t, ThreadIdFormatItem),          //t:线程id
+        CALL_CONSTRUCTOR(n, NewLineFormatItem),           //n:换行
+        CALL_CONSTRUCTOR(d, DateTimeFormatItem),          //d:时间
+        CALL_CONSTRUCTOR(f, FilenameFormatItem),          //f:文件名
+        CALL_CONSTRUCTOR(l, LineFormatItem),              //l:行号
+        CALL_CONSTRUCTOR(T, TabFormatItem),               //T:Tab
+        CALL_CONSTRUCTOR(F, FiberIdFormatItem),           //F:协程id
+        CALL_CONSTRUCTOR(N, ThreadNameFormatItem),        //N:线程名称
 #undef CALL_CONSTRUCTOR
         };
-    // %m 消息体
-    // %p level
-    // %r 启动时间
-    // %c 日志名称
-    // %t 线程id
-    // %n 回车换行
-    // %d 时间
-    // %f 文件名
-    // %l 行号
     // for (auto& item : items_)
     // {
     //     if (std::get<2>(item) == 0)
@@ -158,6 +152,5 @@ LogFormatter::FormatItem::FormatItem(const std::string& format)
 {
 
 }
-
 
 }

@@ -24,5 +24,4 @@ bool FileLogAppender::reopen()
     return !fileStream_;
 }
 
-
 }

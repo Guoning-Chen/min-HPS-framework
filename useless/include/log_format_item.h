@@ -7,7 +7,7 @@
 namespace sylar
 {
     
-// %m 消息
+// (0) %m 消息
 class MessageFormatItem : public LogFormatter::FormatItem
 {
 public:
@@ -16,7 +16,7 @@ public:
         LogLevel::Level level, LogEventPtr event) override;
 };
 
-// %p 日志级别
+// (1) %p 日志级别
 class LevelFormatItem : public LogFormatter::FormatItem
 {
 public:
@@ -25,7 +25,7 @@ public:
         LogLevel::Level level, LogEventPtr event) override;
 };
 
-// %r 累计时间(ms)
+// (2) %r 累计时间(ms)
 class ElapseFormatItem : public LogFormatter::FormatItem
 {
 public:
@@ -34,7 +34,7 @@ public:
         LogLevel::Level level, LogEventPtr event) override;
 };
 
-// %c 日志名称
+// (3) %c 日志名称
 class NameFormatItem : public LogFormatter::FormatItem
 {
 public:
@@ -43,7 +43,7 @@ public:
         LogLevel::Level level, LogEventPtr event) override;
 };
 
-// %t 线程id
+// (4) %t 线程id
 class ThreadIdFormatItem : public LogFormatter::FormatItem
 {
 public:
@@ -52,7 +52,7 @@ public:
         LogLevel::Level level, LogEventPtr event) override;
 };
 
-// %n 换行
+// (5) %n 换行
 class NewLineFormatItem : public LogFormatter::FormatItem
 {
 public:
@@ -61,7 +61,7 @@ public:
         LogLevel::Level level, LogEventPtr event) override;
 };
 
-// %d 时间
+// (6) %d 时间
 class DateTimeFormatItem : public LogFormatter::FormatItem
 {
 public:
@@ -72,7 +72,7 @@ private:
     std::string format_;
 };
 
-// %f 文件名
+// (7) %f 文件名
 class FilenameFormatItem : public LogFormatter::FormatItem
 {
 public:
@@ -81,7 +81,7 @@ public:
         LogLevel::Level level, LogEventPtr event) override;
 };
 
-// %l 行号
+// (8) %l 行号
 class LineFormatItem : public LogFormatter::FormatItem
 {
 public:
@@ -90,18 +90,17 @@ public:
         LogLevel::Level level, LogEventPtr event) override;
 };
 
-// %T Tab
+// (9) %T Tab
 class TabFormatItem : public LogFormatter::FormatItem {
 public:
     TabFormatItem(const std::string& str = "") {}
-    void format(std::ostream& os, LoggerPtr logger, LogLevel::Level level, LogEventPtr event) override {
-        os << "\t";
-    }
+    void format(std::ostream& os, LoggerPtr logger, 
+        LogLevel::Level level, LogEventPtr event) override;
 private:
     std::string m_string;
 };
 
-// %F 协程id
+// (10) %F 协程id
 class FiberIdFormatItem : public LogFormatter::FormatItem
 {
 public:
@@ -110,8 +109,16 @@ public:
         LogLevel::Level level, LogEventPtr event) override;
 };
 
+// (11) %N 线程名称
+class ThreadNameFormatItem : public LogFormatter::FormatItem
+{
+public:
+    using FormatItem::FormatItem;
+    void format(std::ostream& os, LoggerPtr logger, 
+        LogLevel::Level level, LogEventPtr event) override;
+};
 
-// 默认格式
+// (12) 默认格式
 class StringFormatItem : public LogFormatter::FormatItem
 {
 public:
